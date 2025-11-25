@@ -3,7 +3,8 @@
     "allow": [
       "Bash(dir:*)",
       "Bash(python manage.py makemigrations:*)",
-      "Bash(python manage.py:*)"
+      "Bash(python manage.py:*)",
+      "Bash(pip freeze:*)"
     ],
     "deny": [],
     "ask": []

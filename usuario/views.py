@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from django.contrib import messages
 from .models import Usuario
@@ -54,7 +54,4 @@ def login_view(request):
     return render(request, 'usuario/login.html')
 
 
-def logout_view(request):
-    logout(request)
-    messages.success(request, 'Logout realizado com sucesso!')
-    return redirect('login')
+

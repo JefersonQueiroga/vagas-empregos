@@ -39,9 +39,13 @@ Sistema desenvolvido em Django para gerenciamento de vagas de emprego, empresas 
 
 ## Como Executar
 
-### 1. Ativar o ambiente virtual
+### 1. Criar e ativar o ambiente virtual
 
 ```bash
+# Criar o ambiente virtual
+python -m venv venv
+
+# Ativar o ambiente virtual
 # Windows
 venv\Scripts\activate
 
@@ -49,19 +53,30 @@ venv\Scripts\activate
 source venv/bin/activate
 ```
 
-### 2. Instalar dependências (se necessário)
+### 2. Instalar dependências
 
 ```bash
-pip install django
+# Instalar todas as dependências do projeto
+pip install -r requirements.txt
 ```
 
-### 3. Executar o servidor
+### 3. Executar as migrações do banco de dados
+
+```bash
+# Criar as tabelas no banco de dados
+python manage.py migrate
+
+# (Opcional) Criar um superusuário para acessar o admin
+python manage.py createsuperuser
+```
+
+### 4. Executar o servidor
 
 ```bash
 python manage.py runserver
 ```
 
-### 4. Acessar o sistema
+### 5. Acessar o sistema
 
 - **Tela de Login** (ponto de entrada): http://127.0.0.1:8000/usuario/login/
 - **Tela de Cadastro**: http://127.0.0.1:8000/usuario/cadastro/
