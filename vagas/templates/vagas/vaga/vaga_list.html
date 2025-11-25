@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+
+{% block title %}Vagas - Sistema de Vagas{% endblock %}
+
+{% block content %}
+<div class="page-header d-flex justify-content-between align-items-center">
+    <h1><i class="fas fa-clipboard-list"></i> Vagas</h1>
+    <a href="{% url 'vaga_create' %}" class="btn btn-success">
+        <i class="fas fa-plus"></i> Nova Vaga
+    </a>
+</div>
+
+<!-- Formulário de Filtro -->
+<div class="card mb-3">
+    <div class="card-header">
+        <h5 class="mb-0"><i class="fas fa-filter"></i> Filtrar Vagas</h5>
+    </div>
+    <div class="card-body">
+        <form method="get" class="row g-3">
+            <div class="col-md-4">
+                {{ form.descricao.label_tag }}
+                {{ form.descricao }}
+            </div>
+            <div class="col-md-3">
+                {{ form.funcao.label_tag }}
+                {{ form.funcao }}
+            </div>
+            <div class="col-md-3">
+                {{ form.empresa.label_tag }}
+                {{ form.empresa }}
+            </div>
+            <div class="col-md-2 d-flex align-items-end">
+                <button type="submit" class="btn btn-primary w-100 me-2">
+                    <i class="fas fa-search"></i> Filtrar
+                </button>
+                <a href="{% url 'vaga_list' %}" class="btn btn-secondary">
+                    <i class="fas fa-times"></i>
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        {% if request.GET.descricao or request.GET.funcao or request.GET.empresa %}
+            <div class="alert alert-info">
+                <i class="fas fa-info-circle"></i> Filtros ativos.
+                <a href="{% url 'vaga_list' %}" class="alert-link">Limpar filtros</a>
+            </div>
+        {% endif %}
+
+        {% if vagas %}
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Função</th>
+                            <th>Empresa</th>
+                            <th>Salário</th>
+                            <th>Qtd. Vagas</th>
+                            <th>Data Cadastro</th>
+                            <th class="text-end">Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for vaga in vagas %}
+                            <tr>
+                                <td>{{ vaga.id }}</td>
+                                <td>{{ vaga.funcao.nome }}</td>
+                                <td>{{ vaga.empresa.nome }}</td>
+                                <td>R$ {{ vaga.salario }}</td>
+                                <td>{{ vaga.qtd_vagas }}</td>
+                                <td>{{ vaga.data_cadastrado|date:"d/m/Y" }}</td>
+                                <td class="text-end">
+                                    <a href="{% url 'vaga_update' vaga.id %}" class="btn btn-sm btn-warning">
+                                        <i class="fas fa-edit"></i> Editar
+                                    </a>
+                                    <a href="{% url 'vaga_delete' vaga.id %}" class="btn btn-sm btn-danger">
+                                        <i class="fas fa-trash"></i> Excluir
+                                    </a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% else %}
+            <p class="text-center text-muted">Nenhuma vaga cadastrada.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
